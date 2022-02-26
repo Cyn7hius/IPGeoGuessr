@@ -48,6 +48,71 @@ function placeMarker(e) {
         map: map
     });
 
+    var lat = guessMarker.getPosition().lat();
+    var lng = guessMarker.getPosition().lng();
+
+    console.log(lat);
+    console.log(lng);
+
+
+
+    // const userAction = async () => {
+    //     const response = await fetch('https://api.positionstack.com/v1/reverse', {
+    //         access_key: '9950b9dcf36ee5b4b546ae68d2534c2e',
+    //         query: lat, lng,
+    //         output: 'xml',
+    //         limit: 1
+    //     });
+    //     const myJson = await response.json(); //extract JSON from the http response
+    //     console.log(myJson);
+    // }
+
+    async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    postData('https://api.positionstack.com/v1/reverse', {
+        access_key: 'YOUR_ACCESS_KEY',
+        query: '51.507822,-0.076702',
+        output: 'xml',
+        limit: 1
+    })
+        .then(data => {
+            console.log(data); // JSON data parsed by `data.json()` call
+        });
+
+    // const userAction = async () => {
+    //     const response = await fetch('https://api.positionstack.com/v1/reverse', data = {
+    //         access_key: 'YOUR_ACCESS_KEY',
+    //         query: '51.507822,-0.076702',
+    //         output: 'xml',
+    //         limit: 1
+    //     }, {
+    //         method: 'POST',
+    //         body: myBody, // string or object
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    //     const myJson = await response.json(); //extract JSON from the http response
+    //     // do something with myJson
+    // }
+
+
     guessMarker.setMap(map);
 }
 
