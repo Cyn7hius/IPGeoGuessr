@@ -86,7 +86,7 @@ function placeMarker(e) {
     }
 
     postData('https://api.positionstack.com/v1/reverse', {
-        access_key: 'YOUR_ACCESS_KEY',
+        access_key: '9950b9dcf36ee5b4b546ae68d2534c2e',
         query: '51.507822,-0.076702',
         output: 'xml',
         limit: 1
